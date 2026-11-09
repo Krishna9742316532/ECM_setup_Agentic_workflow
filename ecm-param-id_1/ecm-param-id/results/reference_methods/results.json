@@ -1,0 +1,745 @@
+{
+  "A_ocv_model": {
+    "poly_table_error_all_mV": {
+      "max_abs_V": 14.6531,
+      "rms_V": 5.27191
+    },
+    "poly_table_error_window_mV": {
+      "max_abs_V": 14.6531,
+      "rms_V": 8.20838
+    },
+    "poly_monotonic": true,
+    "nls_R0_only": {
+      "linear interpolation": {
+        "R0_mOhm": 2.50069,
+        "Q_Ah": 51.0332,
+        "soc0": 0.505255,
+        "rmse_fit_mV": 9.89863,
+        "rmse_val_mV": 15.5687
+      },
+      "polynomial order 10": {
+        "R0_mOhm": 2.50093,
+        "Q_Ah": 59.9172,
+        "soc0": 0.50006,
+        "rmse_fit_mV": 9.85424,
+        "rmse_val_mV": 10.0241
+      }
+    },
+    "selected_by_pipeline": "poly10"
+  },
+  "B_soc_assumptions": [
+    {
+      "setup": "MATLAB Ex3 (poly10, Q=60 Ah, SOC0=0.5)",
+      "soc_start": 0.5,
+      "soc_end": 0.379736,
+      "soc_direction": [
+        "OK"
+      ],
+      "LS_R0_mOhm": 2.50099,
+      "rmse_fit_mV": 9.85443,
+      "rmse_val_mV": 10.0231
+    },
+    {
+      "setup": "MATLAB Ex3 2RC part (same, flipped sign z-Ts/Q*I)",
+      "soc_start": 0.5,
+      "soc_end": 0.620264,
+      "soc_direction": [
+        "SOC rises during discharge - Coulomb counting sign is flipped"
+      ],
+      "LS_R0_mOhm": 3.64799,
+      "rmse_fit_mV": 160.23,
+      "rmse_val_mV": 314.878
+    },
+    {
+      "setup": "this project before (linear OCV, Q and SOC0 fitted)",
+      "soc_start": 0.505255,
+      "soc_end": 0.36386,
+      "soc_direction": [
+        "OK"
+      ],
+      "LS_R0_mOhm": 2.50069,
+      "rmse_fit_mV": 9.89863,
+      "rmse_val_mV": 15.5687
+    },
+    {
+      "setup": "this project now (poly10 OCV, Q=59.9 Ah, SOC0=0.500, fitted)",
+      "soc_start": 0.50006,
+      "soc_end": 0.37963,
+      "soc_direction": [
+        "OK"
+      ],
+      "LS_R0_mOhm": 2.50093,
+      "rmse_fit_mV": 9.85424,
+      "rmse_val_mV": 10.0241
+    }
+  ],
+  "C_R0_methods": [
+    {
+      "method": "Method 1: LS on V - OCV(SOC)",
+      "R0_mOhm": 2.50093,
+      "needs_soc": true
+    },
+    {
+      "method": "Method 2: difference LS dV = R0*dI (1 column)",
+      "R0_mOhm": 2.5102,
+      "needs_soc": false
+    },
+    {
+      "method": "Method 2: MATLAB 2-column form, theta(1)",
+      "R0_mOhm": 2.51072,
+      "needs_soc": false
+    },
+    {
+      "method": "Method 2: MATLAB 2-column form, theta(2)",
+      "R0_mOhm": 2.50967,
+      "needs_soc": false
+    },
+    {
+      "method": "RLS (lambda = 1, P0 = 1) on V - OCV(SOC)",
+      "R0_mOhm": 2.50093,
+      "needs_soc": true
+    },
+    {
+      "method": "NLS R0-only, poly10 OCV (reference, also fits Q and SOC0)",
+      "R0_mOhm": 2.50093,
+      "needs_soc": false
+    }
+  ],
+  "D_rls_sensitivity": {
+    "lambda": [
+      {
+        "lambda": 0.97,
+        "memory_s": 3.33333,
+        "R0_mOhm": 2.50466,
+        "R0_std_mOhm": 0.176469
+      },
+      {
+        "lambda": 0.98,
+        "memory_s": 5.0,
+        "R0_mOhm": 2.49169,
+        "R0_std_mOhm": 0.103858
+      },
+      {
+        "lambda": 0.99,
+        "memory_s": 10.0,
+        "R0_mOhm": 2.49248,
+        "R0_std_mOhm": 0.0373851
+      },
+      {
+        "lambda": 0.999,
+        "memory_s": 100.0,
+        "R0_mOhm": 2.49578,
+        "R0_std_mOhm": 0.00507291
+      },
+      {
+        "lambda": 0.9998,
+        "memory_s": 500.0,
+        "R0_mOhm": 2.49935,
+        "R0_std_mOhm": 0.00168177
+      },
+      {
+        "lambda": 1.0,
+        "memory_s": null,
+        "R0_mOhm": 2.50093,
+        "R0_std_mOhm": 0.00110926
+      }
+    ],
+    "P0": [
+      {
+        "P0": 1e-08,
+        "R0_mOhm": 2.49646,
+        "t_reach_5pct_s": 753.8
+      },
+      {
+        "P0": 1e-07,
+        "R0_mOhm": 2.49585,
+        "t_reach_5pct_s": 649.9
+      },
+      {
+        "P0": 1e-06,
+        "R0_mOhm": 2.49578,
+        "t_reach_5pct_s": 501.1
+      },
+      {
+        "P0": 1e-05,
+        "R0_mOhm": 2.49578,
+        "t_reach_5pct_s": 92.9
+      },
+      {
+        "P0": 1.0,
+        "R0_mOhm": 2.49578,
+        "t_reach_5pct_s": 11.0
+      },
+      {
+        "P0": 10000.0,
+        "R0_mOhm": 2.49578,
+        "t_reach_5pct_s": 0.5
+      }
+    ],
+    "lam_for_P0": 0.999,
+    "R0_ref_mOhm": 2.50093
+  },
+  "E_arx": {
+    "rows": [
+      {
+        "data": "ECM1 (real)",
+        "method": "LS-ARX (10 Hz)",
+        "R0_mOhm": 2.45655,
+        "R1_mOhm": 0.0445551,
+        "tau1_s": 0.0260446,
+        "C1_F": 584.549,
+        "Q_Ah": null,
+        "soc0": null,
+        "physical": true
+      },
+      {
+        "data": "ECM1 (real)",
+        "method": "LS-ARX (1 s avg)",
+        "R0_mOhm": 2.49942,
+        "R1_mOhm": null,
+        "tau1_s": null,
+        "C1_F": null,
+        "Q_Ah": null,
+        "soc0": null,
+        "physical": false
+      },
+      {
+        "data": "ECM1 (real)",
+        "method": "RLS-ARX (1 s avg)",
+        "R0_mOhm": 2.49966,
+        "R1_mOhm": 8.85247e-05,
+        "tau1_s": 0.357041,
+        "C1_F": 4033240.0,
+        "Q_Ah": null,
+        "soc0": null,
+        "physical": true
+      },
+      {
+        "data": "ECM1 (real)",
+        "method": "LS-ARX2 (10 Hz)",
+        "R0_mOhm": 2.45476,
+        "R1_mOhm": null,
+        "tau1_s": null,
+        "C1_F": null,
+        "R2_mOhm": null,
+        "tau2_s": null,
+        "C2_F": null,
+        "Q_Ah": null,
+        "soc0": null,
+        "physical": false
+      },
+      {
+        "data": "ECM1 (real)",
+        "method": "LS-ARX2 (1 s avg)",
+        "R0_mOhm": 2.49909,
+        "R1_mOhm": null,
+        "tau1_s": null,
+        "C1_F": null,
+        "R2_mOhm": null,
+        "tau2_s": null,
+        "C2_F": null,
+        "Q_Ah": null,
+        "soc0": null,
+        "physical": false
+      },
+      {
+        "data": "ECM1 (real)",
+        "method": "RLS-ARX2 (1 s avg)",
+        "R0_mOhm": 2.4998,
+        "R1_mOhm": null,
+        "tau1_s": null,
+        "C1_F": null,
+        "R2_mOhm": null,
+        "tau2_s": null,
+        "C2_F": null,
+        "Q_Ah": null,
+        "soc0": null,
+        "physical": false
+      },
+      {
+        "data": "synthetic 2RC, noise 0 mV",
+        "method": "LS-ARX2 (10 Hz)",
+        "R0_mOhm": 2.5,
+        "R1_mOhm": 1.0,
+        "tau1_s": 5.0,
+        "C1_F": 5000.0,
+        "R2_mOhm": 1.5,
+        "tau2_s": 60.0,
+        "C2_F": 40000.0,
+        "Q_Ah": null,
+        "soc0": null,
+        "physical": true
+      },
+      {
+        "data": "synthetic 2RC, noise 0 mV",
+        "method": "LS-ARX2 (1 s avg)",
+        "R0_mOhm": 2.60767,
+        "R1_mOhm": 0.252973,
+        "tau1_s": 2.00417,
+        "C1_F": 7922.45,
+        "R2_mOhm": 1.81269,
+        "tau2_s": 15.1796,
+        "C2_F": 8374.09,
+        "Q_Ah": null,
+        "soc0": null,
+        "physical": true
+      },
+      {
+        "data": "synthetic 2RC, noise 10 mV",
+        "method": "LS-ARX2 (10 Hz)",
+        "R0_mOhm": 2.51834,
+        "R1_mOhm": null,
+        "tau1_s": null,
+        "C1_F": null,
+        "R2_mOhm": null,
+        "tau2_s": null,
+        "C2_F": null,
+        "Q_Ah": null,
+        "soc0": null,
+        "physical": false
+      },
+      {
+        "data": "synthetic 2RC, noise 10 mV",
+        "method": "LS-ARX2 (1 s avg)",
+        "R0_mOhm": 2.5853,
+        "R1_mOhm": null,
+        "tau1_s": null,
+        "C1_F": null,
+        "R2_mOhm": null,
+        "tau2_s": null,
+        "C2_F": null,
+        "Q_Ah": null,
+        "soc0": null,
+        "physical": false
+      },
+      {
+        "data": "synthetic 2RC, noise 10 mV",
+        "method": "NLS 2RC",
+        "R0_mOhm": 2.49516,
+        "R1_mOhm": 0.997473,
+        "tau1_s": 4.93276,
+        "C1_F": 4945.25,
+        "R2_mOhm": 1.52685,
+        "tau2_s": 60.4747,
+        "C2_F": 39607.4,
+        "Q_Ah": 54.1127,
+        "soc0": 0.500014,
+        "physical": true
+      }
+    ],
+    "synthetic_2rc_truth": {
+      "R0_mOhm": 2.5,
+      "R1_mOhm": 1.0,
+      "tau1_s": 5.0,
+      "C1_F": 5000.0,
+      "R2_mOhm": 1.5,
+      "tau2_s": 60.0,
+      "C2_F": 40000.0,
+      "Q_Ah": 54.0,
+      "soc0": 0.5
+    }
+  },
+  "F_segmented": {
+    "edges": [
+      0.35,
+      0.375,
+      0.4,
+      0.425,
+      0.45,
+      0.475,
+      0.5,
+      0.525
+    ],
+    "real_rows": [
+      {
+        "soc_lo": 0.35,
+        "soc_hi": 0.375,
+        "n": 0,
+        "I_std_A": 0.0,
+        "used": false,
+        "reason": "too few samples"
+      },
+      {
+        "soc_lo": 0.375,
+        "soc_hi": 0.4,
+        "n": 0,
+        "I_std_A": 0.0,
+        "used": false,
+        "reason": "too few samples"
+      },
+      {
+        "soc_lo": 0.4,
+        "soc_hi": 0.425,
+        "n": 3463,
+        "I_std_A": 27.4169,
+        "used": true,
+        "R0": 0.00249704,
+        "rmse_mV": 9.7023
+      },
+      {
+        "soc_lo": 0.425,
+        "soc_hi": 0.45,
+        "n": 2938,
+        "I_std_A": 58.71,
+        "used": true,
+        "R0": 0.00249931,
+        "rmse_mV": 9.81579
+      },
+      {
+        "soc_lo": 0.45,
+        "soc_hi": 0.475,
+        "n": 1762,
+        "I_std_A": 44.2164,
+        "used": true,
+        "R0": 0.00250433,
+        "rmse_mV": 9.84861
+      },
+      {
+        "soc_lo": 0.475,
+        "soc_hi": 0.5,
+        "n": 5798,
+        "I_std_A": 35.895,
+        "used": true,
+        "R0": 0.00250267,
+        "rmse_mV": 9.93117
+      },
+      {
+        "soc_lo": 0.5,
+        "soc_hi": 0.525,
+        "n": 39,
+        "I_std_A": 1.8632,
+        "used": false,
+        "reason": "too few samples"
+      }
+    ],
+    "real_rmse_mV": {
+      "constant R0": {
+        "fit": 9.85424,
+        "val": 10.0241
+      },
+      "R0(SOC) table": {
+        "fit": 9.85366,
+        "val": 10.0233
+      }
+    },
+    "synthetic_rows": [
+      {
+        "soc_lo": 0.35,
+        "soc_hi": 0.375,
+        "n": 0,
+        "I_std_A": 0.0,
+        "used": false,
+        "reason": "too few samples"
+      },
+      {
+        "soc_lo": 0.375,
+        "soc_hi": 0.4,
+        "n": 1575,
+        "I_std_A": 26.4901,
+        "used": true,
+        "R0": 0.00301894,
+        "rmse_mV": 10.0966,
+        "R1": 0.00147682,
+        "tau1": 32.1101,
+        "R0_true_mid": 0.0030625,
+        "R0_err_pct": -1.42245
+      },
+      {
+        "soc_lo": 0.4,
+        "soc_hi": 0.425,
+        "n": 2968,
+        "I_std_A": 41.2392,
+        "used": true,
+        "R0": 0.00290927,
+        "rmse_mV": 10.1141,
+        "R1": 0.00156566,
+        "tau1": 32.1101,
+        "R0_true_mid": 0.0029375,
+        "R0_err_pct": -0.960899
+      },
+      {
+        "soc_lo": 0.425,
+        "soc_hi": 0.45,
+        "n": 1997,
+        "I_std_A": 62.1033,
+        "used": true,
+        "R0": 0.00283193,
+        "rmse_mV": 10.49,
+        "R1": 0.001509,
+        "tau1": 32.1101,
+        "R0_true_mid": 0.0028125,
+        "R0_err_pct": 0.690842
+      },
+      {
+        "soc_lo": 0.45,
+        "soc_hi": 0.475,
+        "n": 1779,
+        "I_std_A": 37.1088,
+        "used": true,
+        "R0": 0.0026774,
+        "rmse_mV": 10.403,
+        "R1": 0.00154002,
+        "tau1": 32.1101,
+        "R0_true_mid": 0.0026875,
+        "R0_err_pct": -0.375842
+      },
+      {
+        "soc_lo": 0.475,
+        "soc_hi": 0.5,
+        "n": 5680,
+        "I_std_A": 35.7487,
+        "used": true,
+        "R0": 0.00257172,
+        "rmse_mV": 10.0395,
+        "R1": 0.00153015,
+        "tau1": 32.1101,
+        "R0_true_mid": 0.0025625,
+        "R0_err_pct": 0.359671
+      },
+      {
+        "soc_lo": 0.5,
+        "soc_hi": 0.525,
+        "n": 1,
+        "I_std_A": 0.0,
+        "used": false,
+        "reason": "too few samples"
+      }
+    ],
+    "synthetic_tau_hat_s": 32.1101,
+    "synthetic_rmse_mV": {
+      "constant R0, R1": {
+        "fit": 11.9667,
+        "val": 12.401
+      },
+      "R0(SOC), R1(SOC) table": {
+        "fit": 10.18,
+        "val": 10.2852
+      }
+    }
+  },
+  "G_pso": {
+    "rows": [
+      {
+        "data": "synthetic 1RC",
+        "method": "PSO 1RC",
+        "seed": 1,
+        "R0_mOhm": 2.49739,
+        "R1_mOhm": 1.52,
+        "tau1_s": 29.995,
+        "C1_F": 19733.5,
+        "Q_Ah": 54.0061,
+        "soc0": 0.50009,
+        "at_bound": [],
+        "rmse_mV": 10.0442,
+        "err_pct": {
+          "R0": -0.104458,
+          "R1": 1.33357,
+          "tau1": -0.016502
+        }
+      },
+      {
+        "data": "synthetic 1RC",
+        "method": "PSO 1RC",
+        "seed": 2,
+        "R0_mOhm": 2.50595,
+        "R1_mOhm": 1.49398,
+        "tau1_s": 31.0382,
+        "C1_F": 20775.5,
+        "Q_Ah": 54.6661,
+        "soc0": 0.499066,
+        "at_bound": [],
+        "rmse_mV": 10.0739,
+        "err_pct": {
+          "R0": 0.23783,
+          "R1": -0.401071,
+          "tau1": 3.46079
+        }
+      },
+      {
+        "data": "synthetic 1RC",
+        "method": "PSO 1RC",
+        "seed": 3,
+        "R0_mOhm": 2.50755,
+        "R1_mOhm": 1.48906,
+        "tau1_s": 30.7129,
+        "C1_F": 20625.7,
+        "Q_Ah": 54.1295,
+        "soc0": 0.499495,
+        "at_bound": [],
+        "rmse_mV": 10.0605,
+        "err_pct": {
+          "R0": 0.302057,
+          "R1": -0.729242,
+          "tau1": 2.37621
+        }
+      },
+      {
+        "data": "synthetic 1RC",
+        "method": "PSO 1RC + LS polish",
+        "seed": 1,
+        "R0_mOhm": 2.49822,
+        "R1_mOhm": 1.51485,
+        "tau1_s": 30.3892,
+        "C1_F": 20060.9,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993,
+        "at_bound": [],
+        "rmse_mV": 10.0416,
+        "err_pct": {
+          "R0": -0.0711466,
+          "R1": 0.990101,
+          "tau1": 1.2974
+        }
+      },
+      {
+        "data": "ECM1 real (poly10 OCV)",
+        "method": "PSO R0-only + LS polish",
+        "seed": 1,
+        "R0_mOhm": 2.50093,
+        "Q_Ah": 59.9172,
+        "soc0": 0.50006,
+        "at_bound": [],
+        "rmse_mV": 9.85424
+      },
+      {
+        "data": "ECM1 real (poly10 OCV)",
+        "method": "PSO R0-only + LS polish",
+        "seed": 2,
+        "R0_mOhm": 2.50093,
+        "Q_Ah": 59.9172,
+        "soc0": 0.50006,
+        "at_bound": [],
+        "rmse_mV": 9.85424
+      },
+      {
+        "data": "ECM1 real (poly10 OCV)",
+        "method": "PSO R0-only + LS polish",
+        "seed": 3,
+        "R0_mOhm": 2.50093,
+        "Q_Ah": 59.9172,
+        "soc0": 0.50006,
+        "at_bound": [],
+        "rmse_mV": 9.85424
+      },
+      {
+        "data": "ECM1 real (poly10 OCV)",
+        "method": "PSO 1RC + LS polish",
+        "seed": 1,
+        "R0_mOhm": 2.49978,
+        "R1_mOhm": 0.1,
+        "tau1_s": 200.0,
+        "C1_F": 2000000.0,
+        "Q_Ah": 60.7191,
+        "soc0": 0.500333,
+        "at_bound": [
+          "lnR1",
+          "lntau1"
+        ],
+        "rmse_mV": 9.86473
+      },
+      {
+        "data": "ECM1 real (poly10 OCV)",
+        "method": "PSO 1RC + LS polish",
+        "seed": 2,
+        "R0_mOhm": 2.49978,
+        "R1_mOhm": 0.1,
+        "tau1_s": 200.0,
+        "C1_F": 2000000.0,
+        "Q_Ah": 60.7191,
+        "soc0": 0.500333,
+        "at_bound": [
+          "lnR1",
+          "lntau1"
+        ],
+        "rmse_mV": 9.86473
+      },
+      {
+        "data": "ECM1 real (poly10 OCV)",
+        "method": "PSO 1RC + LS polish",
+        "seed": 3,
+        "R0_mOhm": 2.49978,
+        "R1_mOhm": 0.1,
+        "tau1_s": 200.0,
+        "C1_F": 2000000.0,
+        "Q_Ah": 60.7191,
+        "soc0": 0.500333,
+        "at_bound": [
+          "lnR1",
+          "lntau1"
+        ],
+        "rmse_mV": 9.86473
+      },
+      {
+        "data": "ECM1 real (MATLAB set-up: poly10, Q=60, SOC0=0.5)",
+        "method": "PSO MATLAB set-up (15 iter)",
+        "seed": 1,
+        "R0_mOhm": 1.0,
+        "R1_mOhm": 1.0,
+        "tau1_s": 0.01,
+        "C1_F": 10.0,
+        "Q_Ah": 60.0,
+        "soc0": 0.5,
+        "at_bound": [
+          "R0",
+          "R1",
+          "C1"
+        ],
+        "rmse_mV": 24.6679
+      },
+      {
+        "data": "synthetic 1RC (MATLAB set-up, true Q and SOC0)",
+        "method": "PSO MATLAB set-up (15 iter)",
+        "seed": 1,
+        "R0_mOhm": 1.0,
+        "R1_mOhm": 1.0,
+        "tau1_s": 0.01,
+        "C1_F": 10.0,
+        "Q_Ah": 54.0,
+        "soc0": 0.5,
+        "at_bound": [
+          "R0",
+          "R1",
+          "C1"
+        ],
+        "rmse_mV": 45.6741,
+        "err_pct": {
+          "R0": -60.0,
+          "R1": -33.3333,
+          "tau1": -99.9667
+        }
+      }
+    ],
+    "synthetic_truth": {
+      "R0_mOhm": 2.5,
+      "R1_mOhm": 1.5,
+      "tau1_s": 30.0,
+      "C1_F": 20000.0,
+      "Q_Ah": 54.0,
+      "soc0": 0.5
+    },
+    "matlab_bounds": {
+      "lb [R0, R1, C1]": [
+        0.001,
+        0.001,
+        10.0
+      ],
+      "ub [R0, R1, C1]": [
+        0.5,
+        0.5,
+        5000.0
+      ]
+    }
+  },
+  "H_export": {
+    "file": "timeseries_ECM1.csv",
+    "rows": 20005
+  },
+  "soc_setup": {
+    "Q_Ah": 59.9172,
+    "soc0": 0.50006,
+    "soc_range": [
+      0.37963,
+      0.50006
+    ]
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "dataset": "synthetic",
+  "data_sha256": null,
+  "data": {
+    "n": 20005,
+    "dt_s": 0.1,
+    "duration_s": 2000.4,
+    "I_min_A": -251.428,
+    "I_max_A": 132.311,
+    "V_min_V": 2.99226,
+    "V_max_V": 3.9891,
+    "net_charge_Ah": -7.21581,
+    "noise_std_mV": 9.8468,
+    "R0_from_current_steps_mOhm": 2.48471,
+    "checks": "all passed"
+  },
+  "settings": {
+    "t_split_s": 1400.0,
+    "rls_lambda": 0.9998,
+    "ocv_models": [
+      "linear",
+      "poly10"
+    ],
+    "arx_block": 10,
+    "ranges": {
+      "R0": [
+        0.0005,
+        0.01
+      ],
+      "R": [
+        0.0001,
+        0.01
+      ],
+      "tau": [
+        1.0,
+        200.0
+      ],
+      "Q_Ah": [
+        30.0,
+        100.0
+      ],
+      "soc0": [
+        0.4,
+        0.6
+      ]
+    }
+  },
+  "versions": {
+    "python": "3.13.18",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1"
+  },
+  "model_selection": {
+    "table": [
+      {
+        "ocv": "linear",
+        "model": "NLS R0-only",
+        "n_rc": 0,
+        "k": 3,
+        "rmse_fit_mV": 21.8497,
+        "bic": -107031.0,
+        "at_bound": [],
+        "supported": true,
+        "Q_Ah": 49.9315,
+        "soc0": 0.489982
+      },
+      {
+        "ocv": "linear",
+        "model": "NLS 1RC",
+        "n_rc": 1,
+        "k": 5,
+        "rmse_fit_mV": 10.0416,
+        "bic": -128781.0,
+        "at_bound": [],
+        "supported": true,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993
+      },
+      {
+        "ocv": "linear",
+        "model": "NLS 2RC",
+        "n_rc": 2,
+        "k": 7,
+        "rmse_fit_mV": 10.0411,
+        "bic": -128763.0,
+        "at_bound": [],
+        "supported": false,
+        "Q_Ah": 54.1197,
+        "soc0": 0.500015
+      },
+      {
+        "ocv": "poly10",
+        "model": "NLS R0-only",
+        "n_rc": 0,
+        "k": 3,
+        "rmse_fit_mV": 21.292,
+        "bic": -107755.0,
+        "at_bound": [],
+        "supported": true,
+        "Q_Ah": 55.6479,
+        "soc0": 0.487617
+      },
+      {
+        "ocv": "poly10",
+        "model": "NLS 1RC",
+        "n_rc": 1,
+        "k": 5,
+        "rmse_fit_mV": 10.0593,
+        "bic": -128732.0,
+        "at_bound": [],
+        "supported": true,
+        "Q_Ah": 64.0379,
+        "soc0": 0.495234
+      },
+      {
+        "ocv": "poly10",
+        "model": "NLS 2RC",
+        "n_rc": 2,
+        "k": 7,
+        "rmse_fit_mV": 10.0581,
+        "bic": -128716.0,
+        "at_bound": [
+          "R1"
+        ],
+        "supported": false,
+        "Q_Ah": 64.1319,
+        "soc0": 0.495265
+      }
+    ],
+    "recommended": "NLS 1RC",
+    "ocv_model": "linear",
+    "rule": "lowest BIC among (OCV model, RC branches) whose parameters are all inside their ranges and not on a bound"
+  },
+  "soc_setup": {
+    "source": "NLS 1RC, OCV linear",
+    "Q_Ah": 54.0805,
+    "soc0": 0.499993,
+    "soc_range": [
+      0.366566,
+      0.499993
+    ]
+  },
+  "methods": [
+    {
+      "method": "NLS R0-only",
+      "params": {
+        "R0_mOhm": 2.65818,
+        "Q_Ah": 49.9315,
+        "soc0": 0.489982
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 21.8497,
+        "max_abs_mV": 95.3507,
+        "mean_mV": 0.847303
+      },
+      "val": {
+        "rmse_mV": 26.6024,
+        "max_abs_mV": 63.7992,
+        "mean_mV": -23.6179
+      },
+      "residual": {
+        "acf": {
+          "1": 0.790444,
+          "10": 0.760212,
+          "100": 0.585405
+        },
+        "slow_drift_fit_mV": 18.3932
+      },
+      "findings": [
+        "[OK] all parameters positive and inside plausible ranges",
+        "[WARN] validation RMSE 26.60 mV is clearly above the noise (9.8 mV) - something is not modelled",
+        "[WARN] slow residual drift 18.39 mV (white noise would give ~0.98 mV) - check SOC/capacity or slow dynamics"
+      ],
+      "level": "WARN",
+      "std_errors": {
+        "R0": 4.41884e-06,
+        "Q_Ah": 0.177162,
+        "soc0": 0.000247302
+      },
+      "at_bound": [],
+      "error_vs_truth_pct": {
+        "R0": 6.32731,
+        "Q_Ah": -7.53435,
+        "soc0_abs_pct_points": -1.00175
+      }
+    },
+    {
+      "method": "NLS 1RC",
+      "params": {
+        "R0_mOhm": 2.49822,
+        "R1_mOhm": 1.51485,
+        "tau1_s": 30.3892,
+        "C1_F": 20060.9,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 10.0416,
+        "max_abs_mV": 43.8737,
+        "mean_mV": 0.00687346
+      },
+      "val": {
+        "rmse_mV": 10.0484,
+        "max_abs_mV": 37.2276,
+        "mean_mV": -0.238046
+      },
+      "residual": {
+        "acf": {
+          "1": 0.0117409,
+          "10": -0.00923746,
+          "100": -0.00506329
+        },
+        "slow_drift_fit_mV": 1.08501
+      },
+      "findings": [
+        "[OK] all parameters positive and inside plausible ranges",
+        "[OK] RC branch 1: RMS voltage 30.09 mV (noise 9.8 mV)",
+        "[OK] errors are at the noise level and residuals look white"
+      ],
+      "level": "OK",
+      "std_errors": {
+        "R0": 2.24525e-06,
+        "Q_Ah": 0.106666,
+        "soc0": 0.000120194,
+        "R1": 8.40295e-06,
+        "tau1": 0.267248
+      },
+      "at_bound": [],
+      "error_vs_truth_pct": {
+        "R0": -0.0711439,
+        "R1": 0.990171,
+        "tau1": 1.2975,
+        "Q_Ah": 0.149087,
+        "soc0_abs_pct_points": -0.00066892
+      }
+    },
+    {
+      "method": "NLS 2RC",
+      "params": {
+        "R0_mOhm": 2.49715,
+        "R1_mOhm": 0.10001,
+        "tau1_s": 18.2351,
+        "C1_F": 182332.0,
+        "R2_mOhm": 1.42165,
+        "tau2_s": 31.6909,
+        "C2_F": 22291.6,
+        "Q_Ah": 54.1197,
+        "soc0": 0.500015
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 10.0411,
+        "max_abs_mV": 43.9233,
+        "mean_mV": 0.00445809
+      },
+      "val": {
+        "rmse_mV": 10.0462,
+        "max_abs_mV": 37.396,
+        "mean_mV": -0.109627
+      },
+      "residual": {
+        "acf": {
+          "1": 0.0116395,
+          "10": -0.00934374,
+          "100": -0.00509314
+        },
+        "slow_drift_fit_mV": 1.08258
+      },
+      "findings": [
+        "[WARN] R1 = 0.0001 sits on/near a range limit [0.0001, 0.01]",
+        "[WARN] RC branch 1: RMS voltage 2.23 mV is below the noise (9.8 mV) - weakly identifiable",
+        "[OK] RC branch 2: RMS voltage 28.00 mV (noise 9.8 mV)",
+        "[OK] errors are at the noise level and residuals look white"
+      ],
+      "level": "WARN",
+      "std_errors": {
+        "R0": 2.52584e-06,
+        "Q_Ah": 0.116635,
+        "soc0": 0.000121823,
+        "R1": 0.000586998,
+        "tau1": 28.037,
+        "R2": 0.000583049,
+        "tau2": 4.22355
+      },
+      "at_bound": [],
+      "error_vs_truth_pct": {
+        "R0": -0.114093,
+        "R1": -5.22341,
+        "tau1": 5.63617,
+        "Q_Ah": 0.221692,
+        "soc0_abs_pct_points": 0.00148272
+      }
+    },
+    {
+      "method": "LS R0-only",
+      "params": {
+        "R0_mOhm": 2.80268,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 28.7177,
+        "max_abs_mV": 132.467,
+        "mean_mV": 17.658
+      },
+      "val": {
+        "rmse_mV": 16.6429,
+        "max_abs_mV": 69.2814,
+        "mean_mV": 10.7352
+      },
+      "residual": {
+        "acf": {
+          "1": 0.804282,
+          "10": 0.722809,
+          "100": 0.438755
+        },
+        "slow_drift_fit_mV": 24.9592
+      },
+      "findings": [
+        "[OK] all parameters positive and inside plausible ranges",
+        "[WARN] validation RMSE 16.64 mV is clearly above the noise (9.8 mV) - something is not modelled",
+        "[WARN] slow residual drift 24.96 mV (white noise would give ~0.98 mV) - check SOC/capacity or slow dynamics"
+      ],
+      "level": "WARN",
+      "error_vs_truth_pct": {
+        "R0": 12.1072
+      }
+    },
+    {
+      "method": "LS-ARX (10 Hz)",
+      "params": {
+        "R0_mOhm": 2.43711,
+        "R1_mOhm": 0.396756,
+        "tau1_s": 0.753872,
+        "C1_F": 1900.09,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 27.4908,
+        "max_abs_mV": 125.74,
+        "mean_mV": 17.194
+      },
+      "val": {
+        "rmse_mV": 16.1106,
+        "max_abs_mV": 54.7555,
+        "mean_mV": 10.4688
+      },
+      "residual": {
+        "acf": {
+          "1": 0.782883,
+          "10": 0.736332,
+          "100": 0.463353
+        },
+        "slow_drift_fit_mV": 24.217
+      },
+      "findings": [
+        "[FAIL] tau1 = 0.7539 outside plausible range [1, 200]",
+        "[OK] RC branch 1: RMS voltage 16.26 mV (noise 9.8 mV)",
+        "[WARN] validation RMSE 16.11 mV is clearly above the noise (9.8 mV) - something is not modelled",
+        "[WARN] slow residual drift 24.22 mV (white noise would give ~0.98 mV) - check SOC/capacity or slow dynamics"
+      ],
+      "level": "FAIL",
+      "error_vs_truth_pct": {
+        "R0": -2.51548,
+        "R1": -73.5496,
+        "tau1": -97.4871
+      }
+    },
+    {
+      "method": "LS-ARX (1 s avg)",
+      "params": {
+        "R0_mOhm": 2.5217,
+        "R1_mOhm": 1.16649,
+        "tau1_s": 20.5553,
+        "C1_F": 17621.4,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 11.9195,
+        "max_abs_mV": 46.501,
+        "mean_mV": 4.67095
+      },
+      "val": {
+        "rmse_mV": 10.5233,
+        "max_abs_mV": 40.6113,
+        "mean_mV": 2.81505
+      },
+      "residual": {
+        "acf": {
+          "1": 0.171273,
+          "10": 0.151372,
+          "100": 0.125199
+        },
+        "slow_drift_fit_mV": 6.43033
+      },
+      "findings": [
+        "[OK] all parameters positive and inside plausible ranges",
+        "[OK] RC branch 1: RMS voltage 25.27 mV (noise 9.8 mV)",
+        "[WARN] slow residual drift 6.43 mV (white noise would give ~0.98 mV) - check SOC/capacity or slow dynamics"
+      ],
+      "level": "WARN",
+      "error_vs_truth_pct": {
+        "R0": 0.86813,
+        "R1": -22.2337,
+        "tau1": -31.4824
+      }
+    },
+    {
+      "method": "LS-separable 1RC",
+      "params": {
+        "R0_mOhm": 2.49822,
+        "R1_mOhm": 1.51485,
+        "tau1_s": 30.3887,
+        "C1_F": 20060.6,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 10.0416,
+        "max_abs_mV": 43.8738,
+        "mean_mV": 0.00694487
+      },
+      "val": {
+        "rmse_mV": 10.0484,
+        "max_abs_mV": 37.2276,
+        "mean_mV": -0.237992
+      },
+      "residual": {
+        "acf": {
+          "1": 0.0117409,
+          "10": -0.00923746,
+          "100": -0.00506325
+        },
+        "slow_drift_fit_mV": 1.08502
+      },
+      "findings": [
+        "[OK] all parameters positive and inside plausible ranges",
+        "[OK] RC branch 1: RMS voltage 30.09 mV (noise 9.8 mV)",
+        "[OK] errors are at the noise level and residuals look white"
+      ],
+      "level": "OK",
+      "error_vs_truth_pct": {
+        "R0": -0.0711946,
+        "R1": 0.989906,
+        "tau1": 1.29581
+      }
+    },
+    {
+      "method": "LS-separable 2RC",
+      "params": {
+        "R0_mOhm": 2.49722,
+        "R1_mOhm": 0.223691,
+        "tau1_s": 22.3295,
+        "C1_F": 99822.9,
+        "R2_mOhm": 1.29393,
+        "tau2_s": 32.1789,
+        "C2_F": 24869.2,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 10.0412,
+        "max_abs_mV": 43.8811,
+        "mean_mV": -0.0150008
+      },
+      "val": {
+        "rmse_mV": 10.0492,
+        "max_abs_mV": 37.2057,
+        "mean_mV": -0.25699
+      },
+      "residual": {
+        "acf": {
+          "1": 0.0116615,
+          "10": -0.00932217,
+          "100": -0.00508209
+        },
+        "slow_drift_fit_mV": 1.08349
+      },
+      "findings": [
+        "[OK] all parameters positive and inside plausible ranges",
+        "[WARN] RC branch 1: RMS voltage 4.75 mV is below the noise (9.8 mV) - weakly identifiable",
+        "[OK] RC branch 2: RMS voltage 25.40 mV (noise 9.8 mV)",
+        "[OK] errors are at the noise level and residuals look white"
+      ],
+      "level": "WARN",
+      "error_vs_truth_pct": {
+        "R0": -0.111347,
+        "R1": -13.7381,
+        "tau1": 7.26305
+      }
+    },
+    {
+      "method": "RLS R0 + offset",
+      "params": {
+        "R0_mOhm": 2.63251,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 29.6891,
+        "max_abs_mV": 112.644,
+        "mean_mV": 20.1985
+      },
+      "val": {
+        "rmse_mV": 17.1153,
+        "max_abs_mV": 58.6907,
+        "mean_mV": 12.1738
+      },
+      "residual": {
+        "acf": {
+          "1": 0.789132,
+          "10": 0.765133,
+          "100": 0.599013
+        },
+        "slow_drift_fit_mV": 27.4237
+      },
+      "findings": [
+        "[OK] all parameters positive and inside plausible ranges",
+        "[WARN] validation RMSE 17.12 mV is clearly above the noise (9.8 mV) - something is not modelled",
+        "[WARN] slow residual drift 27.42 mV (white noise would give ~0.98 mV) - check SOC/capacity or slow dynamics"
+      ],
+      "level": "WARN",
+      "ocv_offset_at_report_mV": -21.5521,
+      "error_vs_truth_pct": {
+        "R0": 5.30035
+      }
+    },
+    {
+      "method": "RLS-ARX (1 s avg)",
+      "params": {
+        "R0_mOhm": 2.52089,
+        "R1_mOhm": 1.15891,
+        "tau1_s": 20.7035,
+        "C1_F": 17864.6,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 11.9588,
+        "max_abs_mV": 46.5837,
+        "mean_mV": 4.79611
+      },
+      "val": {
+        "rmse_mV": 10.5401,
+        "max_abs_mV": 40.7066,
+        "mean_mV": 2.88643
+      },
+      "residual": {
+        "acf": {
+          "1": 0.169571,
+          "10": 0.149816,
+          "100": 0.126301
+        },
+        "slow_drift_fit_mV": 6.51219
+      },
+      "findings": [
+        "[OK] all parameters positive and inside plausible ranges",
+        "[OK] RC branch 1: RMS voltage 25.07 mV (noise 9.8 mV)",
+        "[WARN] slow residual drift 6.51 mV (white noise would give ~0.98 mV) - check SOC/capacity or slow dynamics"
+      ],
+      "level": "WARN",
+      "error_vs_truth_pct": {
+        "R0": 0.835782,
+        "R1": -22.7392,
+        "tau1": -30.9882
+      }
+    },
+    {
+      "method": "RLS-fixed-tau 1RC",
+      "params": {
+        "R0_mOhm": 2.4995,
+        "R1_mOhm": 1.51322,
+        "tau1_s": 30.3887,
+        "C1_F": 20082.1,
+        "Q_Ah": 54.0805,
+        "soc0": 0.499993
+      },
+      "valid": true,
+      "fit": {
+        "rmse_mV": 10.0417,
+        "max_abs_mV": 43.8773,
+        "mean_mV": 0.0115843
+      },
+      "val": {
+        "rmse_mV": 10.0482,
+        "max_abs_mV": 37.2396,
+        "mean_mV": -0.234316
+      },
+      "residual": {
+        "acf": {
+          "1": 0.0117636,
+          "10": -0.00921839,
+          "100": -0.00511372
+        },
+        "slow_drift_fit_mV": 1.0829
+      },
+      "findings": [
+        "[OK] all parameters positive and inside plausible ranges",
+        "[OK] RC branch 1: RMS voltage 30.06 mV (noise 9.8 mV)",
+        "[OK] errors are at the noise level and residuals look white"
+      ],
+      "level": "OK",
+      "ocv_offset_at_report_mV": -0.0152715,
+      "error_vs_truth_pct": {
+        "R0": -0.0198568,
+        "R1": 0.88162,
+        "tau1": 1.29581
+      }
+    }
+  ],
+  "capacity_sensitivity": [
+    {
+      "window_s": [
+        0,
+        1400.0
+      ],
+      "Q_Ah": 54.0805,
+      "soc0": 0.499993,
+      "R0_mOhm": 2.49822,
+      "rmse_mV": 10.0416,
+      "Q_std_Ah": 0.106666
+    },
+    {
+      "window_s": [
+        0,
+        2000.4
+      ],
+      "Q_Ah": 54.1574,
+      "soc0": 0.499969,
+      "R0_mOhm": 2.49863,
+      "rmse_mV": 10.0428,
+      "Q_std_Ah": 0.0582493
+    },
+    {
+      "window_s": [
+        600,
+        2000.4
+      ],
+      "Q_Ah": 54.1089,
+      "soc0": 0.500091,
+      "R0_mOhm": 2.49893,
+      "rmse_mV": 10.0488,
+      "Q_std_Ah": 0.148758
+    }
+  ],
+  "truth": {
+    "R0_mOhm": 2.5,
+    "R1_mOhm": 1.5,
+    "tau1_s": 30.0,
+    "C1_F": 20000.0,
+    "Q_Ah": 54.0,
+    "soc0": 0.5
+  }
+}
